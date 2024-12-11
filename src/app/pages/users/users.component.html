@@ -1,0 +1,24 @@
+<nz-table
+  [nzData]="usersStore.userEntities()"
+  [nzTitle]="'Users'"
+  [nzFrontPagination]="false"
+  [nzTotal]="usersStore.userEntities().length"
+  [nzBordered]="true"
+  [nzShowPagination]="false">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+  </tr>
+  </thead>
+  <tbody>
+
+    @for(user of usersStore.userEntities(); track user.id) {
+      <tr>
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+      </tr>
+  }
+
+  </tbody>
+</nz-table>
