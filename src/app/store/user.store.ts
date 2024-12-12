@@ -5,7 +5,6 @@ import { User } from '../app.interface';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { distinctUntilChanged, map, pipe, switchMap } from 'rxjs';
 import { UserService } from '../pages/users/user.service';
-import { tapResponse } from '@ngrx/operators';
 
 const userConfig = entityConfig({
   entity: type<User>(),
