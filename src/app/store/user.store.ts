@@ -1,6 +1,6 @@
 import { getState, patchState, signalStore, signalStoreFeature, type, withHooks, withMethods } from '@ngrx/signals';
 import { effect, inject } from '@angular/core';
-import { addEntity, entityConfig, removeEntity, setAllEntities, setEntity, withEntities } from '@ngrx/signals/entities';
+import { entityConfig, removeEntity, setAllEntities, setEntity, withEntities } from '@ngrx/signals/entities';
 import { User } from '../app.interface';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { distinctUntilChanged, map, pipe, switchMap } from 'rxjs';
