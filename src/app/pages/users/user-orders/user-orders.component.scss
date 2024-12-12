@@ -1,0 +1,26 @@
+app-user-orders {
+  .user-select {
+    width: 300px;
+  }
+
+  h3 {
+    margin-top: 20px;
+    font-size: 19px;
+  }
+
+  .user-info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    gap: 5px;
+
+    .label {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .value {
+        font-size: 16px;
+    }
+  }
+}

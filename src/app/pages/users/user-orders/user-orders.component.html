@@ -1,0 +1,20 @@
+<nz-select class="user-select"
+        nzShowSearch nzAllowClear
+        nzPlaceHolder="Select a user"
+        [ngModel]="appStore.selectedUserId()"
+        (ngModelChange)="updateSelectedUser($event)">
+
+    @for (user of appStore.userEntities(); track user.id) {
+        <nz-option [nzLabel]="user.name" [nzValue]="user.id"></nz-option>
+    }
+</nz-select>
+
+@if (appStore.selectedUserId() !== null) {
+    <h3>Selected User Info</h3>
+    <div class="user-info-row">
+        <span class="label">Id:</span>
+        <span class="value">{{ appStore.selectedUserId() }}</span>
+    </div>
+    <app-selected-user-name/>
+    <app-selected-user-orders/>
+}

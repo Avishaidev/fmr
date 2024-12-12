@@ -1,24 +1,78 @@
+<button nz-button
+        nzType="primary"
+        class="add-user-btn"
+        [disabled]="showAddUserRow"
+        (click)="showAddUser()">Add</button>
+
 <nz-table
-  [nzData]="usersStore.userEntities()"
-  [nzTitle]="'Users'"
-  [nzFrontPagination]="false"
-  [nzTotal]="usersStore.userEntities().length"
-  [nzBordered]="true"
-  [nzShowPagination]="false">
-  <thead>
-  <tr>
-    <th>Id</th>
-    <th>Name</th>
-  </tr>
-  </thead>
-  <tbody>
+        [nzData]="appStore.userEntities()"
+        [nzTitle]="'Users'"
+        [nzFrontPagination]="false"
+        [nzTotal]="appStore.userEntities().length"
+        [nzBordered]="true"
+        [nzShowPagination]="false">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
 
-    @for(user of usersStore.userEntities(); track user.id) {
-      <tr>
-        <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
-      </tr>
-  }
+        @for (user of appStore.userEntities(); track user.id) {
+            <tr class="editable-row">
+                <td>{{ user.id }}</td>
+                <td>
+                    <input nz-input #nameInput
+                           type="text"
+                           [hidden]="editUserId !== user.id"
+                           [(ngModel)]="user.name"
+                           [nzStatus]="user.name.trim() === '' ? 'error' : '' "
+                           (keyup.enter)="user.name.trim().length && updateUser(user, nameInput)"
+                           (blur)="updateUser(user, nameInput)" />
 
-  </tbody>
+                    <div class="editable-cell" [hidden]="editUserId === user.id" (click)="setCellEditMode(user.id, nameInput)">
+                        {{ user.name }}
+                    </div>
+                </td>
+
+                <td>
+                    <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteUser(user.id)">Delete</a>
+                </td>
+            </tr>
+        }
+
+    @if (showAddUserRow) {
+        <tr class="editable-row">
+            <td>
+                <input nz-input
+                       type="number"
+                       [nzStatus]="newUserDetails.id === null ? 'error' : '' "
+                       [(ngModel)]="newUserDetails.id" />
+            </td>
+            <td>
+                <input nz-input
+                       type="text"
+                       [nzStatus]="newUserDetails.name.trim() === '' ? 'error' : '' "
+                       [(ngModel)]="newUserDetails.name" />
+            </td>
+
+            <td>
+                <button nz-button [nzGhost]="true"
+                        nzType="primary"
+                        [disabled]="newUserDetails.name.trim() === '' || newUserDetails.id === null"
+                        (click)="saveNewUser()">Save</button>
+
+                <button nz-button
+                        nzType="text"
+                        (click)="cancelNewUser()">Cancel</button>
+            </td>
+        </tr>
+    }
+
+
+    </tbody>
 </nz-table>
+
+<app-user-orders></app-user-orders>
